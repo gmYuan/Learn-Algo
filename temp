@@ -1,0 +1,43 @@
+
+https://leetcode-cn.com/problems/merge-sorted-array/solution/88-he-bing-liang-ge-you-xu-shu-zu-by-alexer-660/
+
+
+var merge = function(nums1, m, nums2, n) {
+   let p1 = m - 1, p2 = n - 1, p = m + n - 1
+   while (p1 >= 0 && p2 >= 0) {
+       nums1[p--] = nums1[p1] < nums2[p2] ? nums2[p2--] : nums1[p1--]
+   }
+   if (p2 >= 0) {
+       nums1.splice(0, p2, ...nums2.slice(0, p2))
+   }
+};
+
+// 通过示例代码
+var merge = function(nums1, m, nums2, n) {
+    let count = m + n;
+    while(m > 0 && n > 0){
+        nums1[--count] = nums1[m-1] < nums2[n-1] ? nums2[--n] : nums1[--m];
+    }
+    if(n > 0){
+        nums1.splice(0,n,...nums2.slice(0,n));
+    }
+};
+
+
+
+S1
+[x, x, x, x, x]                // 合并后的空间,便于理解用
+2,  2, 3, 4, 5
+
+[2, 3, 4, x, x ......]
+[1, 5]
+
+
+合并到第一个数组中 => 尾指针比较
+p1 < p2 => 从后向前移动指针,所以存入 p2 + 向前移动p2
+p1 > p2 => 存入p1 + 向前移动p1
+注意，每次处理完后，也都要移动p
+
+若p1<0 而 p2还有剩余 => 说明这些都是更小的数，所以需要删除p1原有重复元素，替换成p2剩余元素
+
+

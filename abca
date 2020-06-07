@@ -1,0 +1,28 @@
+abca
+abba
+
+
+head, tail 相同 => 移动指针
+head,tail不同 => 分别移动head/left，分别判断head+1/tail-1是否是 回文字符串
+
+var validPalindrome = function(s) {
+  let head = 0, tail = s.length - 1
+  while (head < tail) {
+      if (s[head] === s[tail]) {
+          head++
+          tail--
+      } else {
+          return isPalin(s, head+1, tail) || isPalin(s, head, tail-1)
+      }
+  }
+  return true
+};
+
+isPalin(s, head, tail) {
+    while (head < tail) {
+        if (s[head] !== s[tail]) return false
+        head++
+        tail--
+    }
+    return true
+}
